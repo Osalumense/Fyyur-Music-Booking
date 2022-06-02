@@ -47,6 +47,9 @@ class Venue(db.Model):
     seeking_talent = db.Column(db.Boolean(), nullable=False, default=True)
     seeking_description = db.Column(db.String(120))
 
+    def __repr__(self):
+      return f'<Venue ID: {self.id}, name: {self.name}, city: {self.city}, state: {self.state}, address: {self.address}, phone: {self.phone}, genres: {self.genres}, image_link: {self.image_link}, facebook_link: {self.facebook_link}, website: {self.website}, seeking_description: {self.seeking_description}, seeking_description: {self.seeking_description}>'
+
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
 
 class Artist(db.Model):
@@ -63,6 +66,9 @@ class Artist(db.Model):
     website_link = db.Column(db.String(120))
     seeking_description = db.Column(db.String(120))
     seeking_venue = db.Column(db.Boolean(), nullable=False, default=True)
+
+    def __repr__(self):
+      return f'<Artist ID: {self.id}, name: {self.name}, city: {self.city}, state: {self.state}, phone: {self.phone}, genres: {self.genres}, image_link: {self.image_link}, facebook_link: {self.facebook_link}, website_link: {self.website_link}, seeking_description: {self.seeking_description}, seeking_venue: {self.seeking_venue}>'
     
 
 
@@ -75,6 +81,9 @@ class Show(db.Model):
   artist_id = db.Column(db.Integer, db.ForeignKey('Artist.id'), nullable=False)
   venue_id = db.Column(db.Integer, db.ForeignKey('Venue.id'), nullable=False)
   start_time = db.Column(db.DateTime, nullable=False)
+
+  def __repr__(self):
+    return f'<Show ID: {self.id}, artist_id: {self.artist_id}, venue_id: {self.venue_id}, start_time: {self.start_time}>'
 
 
 # TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
@@ -535,19 +544,36 @@ def shows():
     "artist_image_link": "https://images.unsplash.com/photo-1558369981-f9ca78462e61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=794&q=80",
     "start_time": "2035-04-15T20:00:00.000Z"
   }]
+
+  # data = dict()
+
+  #Working line
   shows = Show.query.order_by('id').all()
-  for show in shows:
-    venue = Venue.query.get(show.venue_id)
-    artist = Artist.query.get(show.artist_id)
-    data = {
-      "venue_id": venue.id,
-      "venue_name": venue.name,
-      "artist_id": artist.id,
-      "artist_name": artist.name,
-      "artist_image_link": artist.image_link,
-      "start_time": show.start_time
-    }
-  return render_template('pages/shows.html', shows=shows)
+
+  # for show in shows:
+  #   venue = Venue.query.get(show.venue_id)
+  #   artist = Artist.query.get(show.artist_id)
+  #   data['venue_id'] = venue.id
+  #   data['venue_name'] = venue.name
+  #   data['artist_id'] = artist.id
+  #   data['artist_name'] = artist.name
+  #   data['artist_image_link'] = artist.image_link
+  #   data['start_time'] = show.start_time
+  
+  # i = 0
+  # while i < len(shows):
+  #   venue = Venue.query.get(shows[i].venue_id)
+  #   artist = Artist.query.get(shows[i].artist_id)
+  #   data['venue_id'] = venue.id
+  #   data['venue_name'] = venue.name
+  #   data['artist_id'] = artist.id
+  #   data['artist_name'] = artist.name
+  #   data['artist_image_link'] = artist.image_link
+  #   data['start_time'] = shows[i].start_time
+  #   i+1
+    
+
+  return render_template('pages/shows.html', shows=data)
 
 @app.route('/shows/create')
 def create_shows():
