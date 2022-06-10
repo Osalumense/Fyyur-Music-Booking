@@ -11,8 +11,8 @@ from flask_migrate import Migrate
 import logging
 from logging import Formatter, FileHandler
 from flask_wtf import FlaskForm as Form
-import collections
-collections.Callable = collections.abc.Callable #Project kept raising "AttributeError: module 'collections' has no attribute 'Callable'" on some pages, I had to add this line to fix it
+# import collections
+# collections.Callable = collections.abc.Callable #Project kept raising "AttributeError: module 'collections' has no attribute 'Callable'" on some pages, I had to add this line to fix it
 from forms import *
 #----------------------------------------------------------------------------#
 # App Config.
