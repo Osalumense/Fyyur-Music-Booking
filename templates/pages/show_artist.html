@@ -9,12 +9,7 @@
 		<p class="subtitle">
 			ID: {{ artist.id }}
 		</p>
-		{{artist.genres}}
-		<div class="genres">
-			{% for genre in artist.genres %}
-			<span class="genre">{{ genre }}</span>
-			{% endfor %}
-		</div>
+	
 		<p>
 			<i class="fas fa-globe-americas"></i> {{ artist.city }}, {{ artist.state }}
 		</p>
@@ -44,6 +39,9 @@
 		<img src="{{ artist.image_link }}" alt="Venue Image" />
 	</div>
 </div>
+<a href="/artists/{{ artist.id }}/edit">
+	<button class="btn btn-primary btn-lg">Edit</button>
+</a>
 <section>
 	<h2 class="monospace">{{ artist.upcoming_shows_count }} Upcoming {% if artist.upcoming_shows_count == 1 %}Show{% else %}Shows{% endif %}</h2>
 	<div class="row">
@@ -71,9 +69,8 @@
 		</div>
 		{% endfor %}
 	</div>
-</section>
+</section> 
 
-<a href="/artists/{{ artist.id }}/edit"><button class="btn btn-primary btn-lg">Edit</button></a>
 
 {% endblock %}
 
